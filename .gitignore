@@ -1,0 +1,9 @@
+keys.json
+
+.next/
+.vscode/
+
+--untracked/
+node_modules/
+
+package-lock.json
