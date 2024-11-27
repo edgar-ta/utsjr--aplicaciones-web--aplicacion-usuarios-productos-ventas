@@ -43,3 +43,6 @@ export function getAppEndpointsForEntity(entityName: SupportedAppEntity): AppEnd
 export const userApiEndpoints = getApiEndpointsForEntity("user");
 export const productApiEndpoints = getApiEndpointsForEntity("product");
 export const saleApiEndpoints = getApiEndpointsForEntity("sale");
+export const loginEndpoint = `${apiUrl}/authorization/login`
+
+

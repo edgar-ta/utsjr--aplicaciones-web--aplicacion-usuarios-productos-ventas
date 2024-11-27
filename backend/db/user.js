@@ -8,11 +8,12 @@ const Result = require("../lib/result.js");
  * @typedef {string} Name
  * @typedef {string} Username
  * @typedef {string} Password
+ * @typedef {"admin" | "regular" | "none"} UserType
  * 
  * @typedef {{ name: Name, username: Username, password: Password }} UserController_Input
- * @typedef {{ name: Name, username: Username, password: EncryptedString }} UserController_Internal_Incomplete
- * @typedef {{ name: Name, username: Username, salt: string, encryptedPassword: string }} UserController_Payload
- * @typedef {{ name: Name, username: Username, salt: string, encryptedPassword: string, id: string, systemId: string }} UserController_Data
+ * @typedef {{ name: Name, username: Username, password: EncryptedString, userType: UserType }} UserController_Internal_Incomplete
+ * @typedef {{ name: Name, username: Username, salt: string, encryptedPassword: string, userType: UserType }} UserController_Payload
+ * @typedef {{ name: Name, username: Username, salt: string, encryptedPassword: string, id: string, systemId: string, userType: UserType }} UserController_Data
  */
 
 /**
@@ -57,7 +58,10 @@ class UserController extends Controller {
             encryptedPassword: new Validator()
                 .required("La contraseña en su forma encriptada debe estar presente"),
             salt: new Validator()
-                .required("El parámetro salt de la contraseña encriptada debe estar presente")
+                .required("El parámetro salt de la contraseña encriptada debe estar presente"),
+            userType: new Validator()
+                .required("El tipo de usuario debe ser especificado")
+                .pattern(/(admin|regular|none)/, "El usuario solo puede ser de tipo 'admin', 'regular' o 'none'")
         };
     })();
 
