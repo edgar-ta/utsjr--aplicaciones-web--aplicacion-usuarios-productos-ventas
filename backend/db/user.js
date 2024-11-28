@@ -87,6 +87,7 @@ class UserController extends Controller {
                 return {
                     name: record.name,
                     username: record.username,
+                    userType: "regular",
                     password
                 }
             })
@@ -107,9 +108,10 @@ class UserController extends Controller {
                 name: record.name,
                 id,
                 username: record.username,
-                password: EncryptedString.buildFromEncryption(record.salt, record.encryptedPassword)
+                password: EncryptedString.buildFromEncryption(record.salt, record.encryptedPassword),
+                userType: record.userType
             }))
-            ;
+        ;
     }
 
     /**
@@ -122,7 +124,8 @@ class UserController extends Controller {
             name: record.name,
             encryptedPassword: record.password.encryptedString,
             salt: record.password.salt,
-            username: record.username
+            username: record.username,
+            userType: record.userType
         };
     }
 
@@ -138,7 +141,8 @@ class UserController extends Controller {
             encryptedPassword: record.password.encryptedString,
             salt: record.password.salt,
             username: record.username,
-            systemId: `${record.username}@${record.id}`
+            systemId: `${record.username}@${record.id}`,
+            userType: record.userType
         };
     }
 
@@ -170,7 +174,8 @@ class UserController extends Controller {
                             return {
                                 name: body.name,
                                 username: body.username,
-                                password: record.password
+                                password: record.password,
+                                userType: record.userType
                             };
                         })
                     ;

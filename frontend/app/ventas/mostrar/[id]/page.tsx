@@ -7,8 +7,7 @@ import Link from "next/link";
 
 function EntityLink(props: {
     name: string,
-    href: string,
-    id: string
+    href: string
 }) {
     return (
         <Link className="
@@ -29,9 +28,6 @@ function EntityLink(props: {
             <HeadingElement size="small" className="text-gray-700">
                 { props.name }
             </HeadingElement>
-            <TextElement className="text-slate-400">
-                { props.id }
-            </TextElement>
         </Link>
     );
 }
@@ -162,12 +158,10 @@ export default async function(props: { children?: React.ReactNode, className?: s
             space-y-6
             ">
                 <EntityLink 
-                    id={sale.user.id}
                     name={sale.user.name}
                     href={showUserEndpoint}
                     />
                 <EntityLink 
-                    id={sale.product.id}
                     name={sale.product.name}
                     href={showProductEndpoint}
                     />

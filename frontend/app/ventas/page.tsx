@@ -78,6 +78,7 @@ export default async function () {
                 amountOfSale
             })}
             columnNames={[ "Fecha", "Usuario", "Producto", "Estado", "Cantidad de Producto", "Total de Venta" ]}
+            dataPostProcessing={(records) => records.filter(record => record.state != "canceled")}
             />
     );
 }

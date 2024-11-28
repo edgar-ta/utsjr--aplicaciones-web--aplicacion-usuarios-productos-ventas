@@ -96,6 +96,10 @@ function TableItself <InternalData extends { id: string }, ExternalData extends 
     );
 }
 
+function unit<T>(value: T): T {
+    return value;
+}
+
 export default async function <InternalData extends { id: string }, ExternalData extends { name: string }> (props: {
     apiEntityName: SupportedApiEntity,
     appEntityName: SupportedAppEntity,
@@ -103,9 +107,11 @@ export default async function <InternalData extends { id: string }, ExternalData
     legend: string,
     formatter: (internalData: InternalData) => ExternalData,
     columnNames: string[],
+    dataPostProcessing?: (records: InternalData[]) => InternalData[]
 }) {
     const endpoint = getApiEndpointsForEntity(props.apiEntityName).getAll;
-    const records: InternalData[] = await axios.get(endpoint).then(response => response.data.details);
+    const dataPostProcessing: (records: InternalData[]) => InternalData[] = props.dataPostProcessing ?? unit;
+    const records: InternalData[] = dataPostProcessing(await axios.get(endpoint).then(response => response.data.details));
 
     return (
         <section className="
